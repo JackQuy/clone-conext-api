@@ -41,18 +41,10 @@ class BusinessTypeController extends Controller
      */
     public function store(Request $request)  //post
     {
-        $validate = $request->validate(
-            [
-                'name' => 'required|unique:posts'
-            ],
-            [
-                'name.required' => 'Không được để trống',
-                'name.unique' => 'Name phải duy nhất'
-            ]
-        );
-        if($validate) {
-            return $validate;
-        }
+        $rules = [
+            'name' => 'required|unique:business_types',
+        ];
+        $this->validate($request,$rules);
         $data = $this->repository->store($request->all());
         return response()->json($data, 200);
     }

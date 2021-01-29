@@ -55,9 +55,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show($id)
     {
-        return $this->repository->show($event);
+        return $this->repository->show($id);
     }
 
     /**

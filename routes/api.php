@@ -1,11 +1,7 @@
 <?php
 
-use App\Http\Controllers\BusinessTypeController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\ExploreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +22,11 @@ Route::group(['prefix' => 'home'], function() {
     Route::resource('expertise', 'ExpertiseController');
     Route::resource('businessType', 'BusinessTypeController');
     Route::resource('explore', 'ExploreController');
+    Route::resource('user', 'UserController');
 });
 
 Route::resource('event', 'EventController');
+
+Route::resource('voucher', 'VoucherController');
 
 

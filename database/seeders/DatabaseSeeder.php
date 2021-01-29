@@ -18,8 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         // BusinessTypeTableSeeder::class;
-        EventTableSeeder::class;
-        ExpertiseTableSeeder::class;
-        ExploreSeeder::class;
+        // EventTableSeeder::class;
+        // ExpertiseTableSeeder::class;
+        // ExploreSeeder::class;
+        // $this->call(VoucherTableSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected $repository;
+    public function __construct(UserRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $data = $this->repository->getAll();
+        return response()->json($data, 200);
     }
 
     /**
@@ -21,9 +29,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // return Event::create($request->all());
     }
 
     /**
@@ -34,7 +42,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name'=>'required',
+            'email'=>'required|email|unique:users',
+            'password'=>'required|min:6|confirmed',
+        ];
+        $this->validate($request,$rules);
+        // $data = $request ->all();
+        // $data['password'] = bcrypt($request->password);
+        // $data['verified']= User::VERIFIED_USER;
+        // $data['verified_token']=User::generateVerifiedCode();
+        $data = $this->repository->store($request->all());
+        return response()->json($data, 200);
     }
 
     /**
@@ -45,7 +64,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->repository->show($id);
     }
 
     /**
@@ -68,7 +87,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->repository->update($request->all(), $id);
     }
 
     /**
@@ -79,6 +98,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->repository->destroy($id);
     }
 }

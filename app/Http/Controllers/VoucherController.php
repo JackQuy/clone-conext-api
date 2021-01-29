@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\VoucherRepository;
 use Illuminate\Http\Request;
 
 class VoucherController extends Controller
 {
+    protected $repository;
+    public function __construct(VoucherRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,8 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        //
+        $data = $this->repository->getAll();
+        return response()->json($data, 200);
     }
 
     /**
@@ -21,9 +29,9 @@ class VoucherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // return Event::create($request->all());
     }
 
     /**
@@ -34,7 +42,8 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->repository->store($request->all());
+        return response()->json($data, 200);
     }
 
     /**
@@ -45,7 +54,7 @@ class VoucherController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->repository->show($id);
     }
 
     /**
@@ -68,7 +77,7 @@ class VoucherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->repository->update($request->all(), $id);
     }
 
     /**
@@ -79,6 +88,6 @@ class VoucherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->repository->destroy($id);
     }
 }
